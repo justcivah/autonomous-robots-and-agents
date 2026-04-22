@@ -22,7 +22,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Compile Typst document
+      - name: Typst setup
         uses: typst-community/setup-typst@v4
         with:
           typst-version: latest
@@ -40,8 +40,8 @@ jobs:
       - name: Commit compiled PDF
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name  "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
           git add -f main.pdf
-          git diff --cached --quiet || git commit -m "ci: recompile main.pdf [skip ci]"
+          git diff --cached --quiet || git commit -m "Recompile main.pdf"
           git push
