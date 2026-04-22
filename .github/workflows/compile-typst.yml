@@ -45,6 +45,6 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add output.pdf
+          git add -f output.pdf
           git diff --cached --quiet || git commit -m "ci: recompile output.pdf [skip ci]"
           git push
