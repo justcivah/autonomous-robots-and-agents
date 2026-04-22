@@ -25,26 +25,23 @@ jobs:
       - name: Compile Typst document
         uses: typst-community/setup-typst@v4
         with:
-          typst-version: latest # pin to e.g. "v0.13.1" for reproducibility
+          typst-version: latest
 
       - name: Build PDF
-        run: typst compile main.typ output.pdf
-        # If you need fonts from the repo or a custom directory:
-        # run: typst compile --font-path ./fonts main.typ output.pdf
+        run: typst compile main.typ main.pdf
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
           name: compiled-pdf
-          path: output.pdf
+          path: main.pdf
           retention-days: 30
 
-      # Optional: commit the PDF back to the repo (only on push to main)
       - name: Commit compiled PDF
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f output.pdf
-          git diff --cached --quiet || git commit -m "ci: recompile output.pdf [skip ci]"
+          git add -f main.pdf
+          git diff --cached --quiet || git commit -m "ci: recompile main.pdf [skip ci]"
           git push
