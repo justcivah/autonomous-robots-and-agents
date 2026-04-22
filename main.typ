@@ -31,13 +31,13 @@
 
   show heading.where(level: 1): it => {
     v(1.6em)
-    text(size: 15pt, weight: "bold")[#it]
+    text(size: 16pt, weight: "bold")[#it]
     v(0.5em)
   }
 
   show heading.where(level: 2): it => {
     v(1.0em)
-    text(size: 12.5pt, weight: "bold")[#it]
+    text(size: 13pt, weight: "bold")[#it]
     v(0.3em)
   }
 
