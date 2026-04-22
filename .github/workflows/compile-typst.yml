@@ -1,0 +1,47 @@
+name: Compile Typst
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.typ"
+  pull_request:
+    paths:
+      - "**.typ"
+  workflow_dispatch:
+
+jobs:
+  compile:
+    name: Compile Typst document
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile Typst document
+        uses: typst-community/setup-typst@v4
+        with:
+          typst-version: latest
+
+      - name: Build PDF
+        run: typst compile main.typ main.pdf
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-pdf
+          path: main.pdf
+          retention-days: 30
+
+      - name: Commit compiled PDF
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f main.pdf
+          git diff --cached --quiet || git commit -m "ci: recompile main.pdf [skip ci]"
+          git push
