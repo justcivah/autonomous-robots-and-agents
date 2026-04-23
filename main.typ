@@ -43,7 +43,7 @@
 
   show heading.where(level: 3): it => {
     v(0.8em)
-    text(size: 11pt, weight: "bold", style: "italic")[#it]
+    text(size: 11pt, weight: "bold")[#it]
     v(0.2em)
   }
 
