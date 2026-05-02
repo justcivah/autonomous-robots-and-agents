@@ -47,13 +47,6 @@
     v(0.2em)
   }
 
-  // figure spacing
-  show figure: it => {
-    v(2em)
-    [#it]
-    v(2em)
-  }
-
   // cover page
   set page(numbering: none)
   align(center + horizon)[
@@ -73,7 +66,6 @@
   counter(page).update(1)
 
   doc
-
 }
 
 // apply templeate
