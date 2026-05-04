@@ -14,7 +14,7 @@ With the concept of autonomy, we move away from the classical automation problem
 
 Their autonomy makes them particularly useful in scenarios where human intervention is not possible, inefficient, or dangerous. Some examples may be natural disasters, contaminated sites, deep sea or space exploration, and more in general hazardous environments. At the same time, autonomy makes complex operation possible, without the need of continuous human intervention.
 
-A robot can be autonomous by perceiving its surrounding environment. That is possible thanks different types of sensors that provide informations about the world. Common examples include RGB-D cameras, capturing images and depth informations, LiDAR sensors, measuring distances thanks to laser pulses, and ultrasonic sensors, emitting high-frequency soud waves that measure distance.
+A robot can be autonomous by perceiving its surrounding environment. That is possible thanks different types of sensors that provide informations about the world. Common examples include RGB-D cameras, capturing images and depth informations, LiDAR sensors, measuring distances thanks to laser pulses, and ultrasonic sensors, emitting high-frequency sound waves that measure distance.
 
 == Robot Families
 
@@ -22,7 +22,7 @@ There are two main families of robots:
 
 - *Mobile robots:* a robot not constrained to remain in a pre-assigned area, that is able to operate in either structured or unstructured environments. They can move in different ways, all of them somehow inspired by nature: they can walk, run, jump, slide, roll and fly. But there is one exception: the actively powered wheel was invented by humans and is extremely efficient on flat ground.
 
-- *Fixed robots:* a robot anchored to a fixed location in space, typically deployed in structured environments. This is the most common type of robot used in assembly lines and industrial automation, and are designed to do repetitive tasks such as weliding, assembly, and painting. Compared with mobile robots they usually have more stability, greater payload capacity, and precision. Given their size, humans can't enter in their working area for safety reasons. On the other hand, cooperative robots (*cobots*), can work with humans as they are smaller in size and have sensors capable of stopping when touching an obstacle.
+- *Fixed robots:* a robot anchored to a fixed location in space, typically deployed in structured environments. This is the most common type of robot used in assembly lines and industrial automation, and are designed to do repetitive tasks such as welding, assembly, and painting. Compared with mobile robots they usually have more stability, greater payload capacity, and precision. Given their size, humans can't enter in their working area for safety reasons. On the other hand, cooperative robots (*cobots*), can work with humans as they are smaller in size and have sensors capable of stopping when touching an obstacle.
 
 == Structured and Unstructured Environments
 
@@ -35,7 +35,7 @@ unpredictable. The robot doesn't usually have a prior precise map of its surroun
 
 The course will primarily focus on mobile robots, and in particular on those main problems:
 
-- *Localization:* estimate the robot position and location in it's working environment.
+- *Localization:* estimate the robot position and location in its working environment.
 - *Navigation:* moving from one location to another in a safe and efficient way.
 - *Planning:* compute a sequence of actions in order to achieve a certain goal.
 
@@ -45,7 +45,7 @@ A robot can be defined as the integration of multiple subsystems, each devoted t
 
 The open loop operation is one of the easiest way a robot can operate. It consists in executing pre-defined commands, without taking feedbacks from the environment. This means they cannot adjust their actions, but just assume the environment behaves as excpected. These types of robots have no sensors, and can only work in structured or highly predictable environments. They are useful for simple and repetitive tasks, such as pre-programmed assembly line, and fixed-path industrial painting.
 
-In open loop operation, all possible conditions must be considered in advance, as the robot cannot adapt to unexpected changes in the environment. Because of this, the robot can't be considered autonomous, as it relies only on pre prior programming instead of real time planning. A simple scheme showing the open loop architecture is shown in @open_loop_architecture.
+In open loop operation, all possible conditions must be considered in advance, as the robot cannot adapt to unexpected changes in the environment. Because of this, the robot can't be considered autonomous, as it relies only on prior programming instead of real time planning. A simple scheme showing the open loop architecture is shown in @open_loop_architecture.
 
 #figure(
   gap: 1.5em,
@@ -165,7 +165,7 @@ These two perspectives are complementary rather than alternative: closed loop op
   ],
 ) <agent_view_architecture>
 
-A more detailed agent view diagram is shown in @agent_view_detailed, where the loop is described at the signal level. Here, the environment is described using an internal state *x*. Decisions are taken based on that information, and actuators apply a control actions *u* perturbed by some disturbances, before reaching the environment. Sensors observe the state producing some measurements *z*, which are also affected by some hardware disturbances. Also the environment can be affected by some disturbances, such as weather conditions or moving obstacles.
+A more detailed agent view diagram is shown in @agent_view_detailed, where the loop is described at the signal level. Here, the environment is described using an internal state *x*. Decisions are taken based on that information, and actuators apply a control action *u* perturbed by some disturbances, before reaching the environment. Sensors observe the state producing some measurements *z*, which are also affected by some hardware disturbances. Also the environment can be affected by some disturbances, such as weather conditions or moving obstacles.
 
 #figure(
   gap: 1.5em,
@@ -223,7 +223,7 @@ A more detailed agent view diagram is shown in @agent_view_detailed, where the l
 
 == The Uncertainty Cycle
 
-In a perfect world, if you tell a robot to move 1 meter, it will move exactly by that distance. But as the disturbances in @agent_view_detailed illustrate, a real environment is affected by some disturbance, which may interfere with robot actions and sensing operations. For example, if the robot has to move by one meter, it will probably end up with at a slightly different posision from the 1 meter marker. This difference between the _intended_ state and the _actual_ one, is driven by the uncertainty cycle, a continuous loop where actions accumulate uncertainty and perceptions correct it.
+In a perfect world, if you tell a robot to move one meter, it will move exactly by that distance. But as the disturbances in @agent_view_detailed illustrate, a real environment is affected by some disturbance, which may interfere with robot actions and sensing operations. For example, if the robot has to move by one meter, it will probably end up with at a slightly different position from the one meter marker. This difference between the _intended_ state and the _actual_ one, is driven by the uncertainty cycle, a continuous loop where actions accumulate uncertainty and perceptions correct it.
 
 Let's examine each phase in detail:
 
@@ -237,8 +237,8 @@ To formalize how robots interact with their environment, we model them as dynami
 
 There are two main equations to model that system behavior:
 
-- *State-transition equation* $f()$: describes how the state evolves over time as a function of the current state and control inputs. This captures the robot's dynamics, like how its position changes when wheels turn.
-- *Observation equation* $h()$: describes how sensor measurements relate to the current state. This maps the robot's actual state to what the sensors perceive. For example an image taken from a camera depends on the robot current orientation.
+- *State-transition equation* $f$: describes how the state evolves over time as a function of the current state and control inputs. This captures the robot's dynamics, like how its position changes when wheels turn.
+- *Observation equation* $h$: describes how sensor measurements relate to the current state. This maps the robot's actual state to what the sensors perceive. For example an image taken from a camera depends on the robot current orientation.
 
 === Time-Variant and Time-Invariant
 
@@ -276,9 +276,7 @@ Notice that time can also be modeled as continuous or discrete, based on how the
 
 === State Evolution
 
-Consider a robot starting from initial state $bold(x)_0$. A starting control input $bold(u_1)$ is given, and the state evolves into $bold(x)_1 = f(bold(x)_0, bold(u)_1)$. In this state, a sensor measurement $h(bold(x_1))$ is obtained. Then, the next control input $bold(u_2)$ is applied, and the state $bold(x)_2 = f(bold(x)_1, bold(u)_2)$ is reached. This process then continues:
-
-At this new state, a sensor measurement $bold(z)_1 = h(bold(x)_1)$ is obtained. Applying the next control input $bold(u)_2$ yields $bold(x)_2 = f(bold(x)_1, bold(u)_2)$, and so on. This process continues as:
+Consider a robot starting from initial state $bold(x)_0$. A starting control input $bold(u_1)$ is given, and the state evolves into $bold(x)_1 = f(bold(x)_0, bold(u)_1)$. In this state, a sensor measurement $h(bold(x_1))$ is obtained. Then, the next control input $bold(u_2)$ is applied, and the state $bold(x)_2 = f(bold(x)_1, bold(u)_2)$ is reached. At this new state, a sensor measurement $bold(z)_1 = h(bold(x)_1)$ is obtained. Applying the next control input $bold(u)_2$ yields $bold(x)_2 = f(bold(x)_1, bold(u)_2)$, and so on. This process continues as:
 
 #figure(
   placement: none,
